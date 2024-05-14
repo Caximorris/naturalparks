@@ -1,0 +1,50 @@
+<% layout('layouts/boilerplate') %>
+    <div class="row">
+        <h1 class="text-center">Edit your park</h1>
+        <div class="col-md-6 offset-md-3">
+            <form action="/naturalparks/<%=naturalpark.id%>?_method=PUT" method="POST" novalidate
+                class="needs-validation" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label class="form-label" for="title">Title</label>
+                    <input type="text" class="form-control" id="title" name="naturalpark[title]"
+                        value="<%=naturalpark.title%>" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="location">Location</label>
+                    <input type="text" class="form-control" id="location" name="naturalpark[location]"
+                        value="<%=naturalpark.location%>" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="description">Description</label>
+                    <textarea class="form-control" id="description" name="naturalpark[description]"
+                        required><%=naturalpark.description%></textarea>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="tourprice">Tour Price</label>
+                    <div class="input-group">
+                        <span class="input-group-text" id="tourprice-label">$</span>
+                        <input type="number" class="form-control" id="tourprice" name="naturalpark[tourprice]"
+                            placeholder="<%=naturalpark.tourprice%>" aria-label="tourprice"
+                            aria-describedby="tourprice-label" value="<%=naturalpark.tourprice%>" required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="images" class="form-label">Images</label>
+                    <input class="form-control" type="file" id="images" name="image" multiple>
+                </div>
+                <div class="mb-3">
+                    <% naturalpark.image.forEach(function(img, i) { %>
+                        <img src="<%= img.thumbnail %>" alt="image" class="img-thumbnail">
+                        <div class="form-check-inline">
+                            <input type="checkbox" id="image-<%= i %>" name="deleteImages[]" value="<%= img.filename %>">
+                        </div>
+                        <label for="image-<%= i %>">Delete</label>
+                    <% }) %>
+                </div>
+                <div class="mb-3">
+                    <a href="/naturalparks/<%=naturalpark.id%>" class="btn btn-secondary btn-block">Cancel</a>
+                    <input type="submit" class="btn btn-primary btn-block" value="Confirm">
+                </div>
+            </form>
+        </div>
+    </div>

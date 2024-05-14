@@ -1,0 +1,35 @@
+<% layout('layouts/boilerplate') %>
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h3 class="text-center mb-3">Reviews for <%=naturalpark.title%>
+            </h3>
+            <ul class="list-group mb-3">
+                <% naturalpark.reviews.forEach(function(review) { %>
+                    <li class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <p class="starability-result" data-rating="<%=review.rating%>">
+                            Rated: <%=review.rating%> stars
+                            </p>
+                        </div>
+                        <p class="mb-1"><%=review.body%></p>
+                        <div class="mb-3">
+                            <small>By: <%=review.owner.username%></small>
+                        </div>
+                        <% if (currentUser && currentUser.id === review.owner.id) { %>
+                            <form action="/naturalparks/<%=naturalpark.id%>/reviews/<%=review.id%>?_method=DELETE" method="POST">
+                                <input type="submit" value="Delete Review" class="btn btn-danger btn-sm
+                                float-right">
+                            </form>
+                        <% } %>
+                    </li>
+                    <% }) %>
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h6>Leave a review!</h6>
+            <%- include ("../partials/submitreview") %>
+            <a class="btn btn-secondary btn-block mb-3" href="/naturalparks/<%=naturalpark.id%>">Back</a>
+        </div>
+    </div>

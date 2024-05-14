@@ -1,0 +1,59 @@
+<% layout('layouts/boilerplate') %>
+    <h1 class="text-center">Park Details</h1>
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card mb-3">
+                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
+                    <div class="carousel-inner">
+                        <% naturalpark.image.forEach((img, i) => { %>
+                            <div class="carousel-item <%= i === 0 ? 'active' : ''%>">
+                                <img class="img-fluid" src="<%=img.url%>" alt="<%=naturalpark.title%>">
+                            </div>
+                        <% }) %>
+                    </div>
+                    <% if(naturalpark.image.length > 1) {%>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                          </button>
+                          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                          </button>
+                    <% } %>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <%=naturalpark.title%>
+                    </h5>
+                    <p class="card-text">
+                        Rating: <%=naturalpark.averageRating%> (from <%=naturalpark.reviews.length%> reviews)   
+                    </p>
+                    <p class="card-text">
+                        <%=naturalpark.description%>
+                    </p>
+                    <small class="text-muted">
+                        <%=naturalpark.location%>
+                        <br>
+                        By <%=naturalpark.owner.username%>
+                    </small>
+                    <p class="card-text">Tour price: $<%=naturalpark.tourprice%>
+                    </p>
+                    <a class="btn btn-secondary btn-block"
+                        href="/naturalparks/<%=naturalpark.id%>/reviews">Reviews</a>
+                    <% if (currentUser && naturalpark.owner.id === currentUser.id) { %>
+                        <div class="mb-2 mt-3">
+                            <form action="/naturalparks/<%=naturalpark.id%>?_method=DELETE" method="POST">
+                                <input class="btn btn-danger btn-block" type="submit" value="Delete">
+                                <a class="btn btn-secondary btn-block"
+                                    href="/naturalparks/<%=naturalpark.id%>/edit">Edit</a>
+                            </form>
+                        </div>
+                    <% } %>
+                </div>
+            </div>
+            <h6>Leave a review!</h6>
+            <%- include ("../partials/submitreview") %> 
+            <a class="btn btn-secondary btn-block mb-3" href="/naturalparks">Back</a>
+        </div>
+    </div>
