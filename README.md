@@ -35,7 +35,7 @@ To get started with the NaturePark Upload Web App, follow these steps:
 
 5. **Configure Environment Variables:** Set up environment variables for MongoDB connection and Cloudinary credentials (.env).
 
-6. **Start the Server:** Launch the web application by running this on the main folder:
+6. **Start the Server:** Launch the web application by running this on the main folder (the defaoult port is 3000):
    ```
    nodemon app.js
    ```
