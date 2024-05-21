@@ -19,7 +19,7 @@ const storeReturnTo = (req, res, next) => {
 
 const isOwnerOf = (model) => async (req, res, next) => {
     const item = await model.findById(req.params.id);
-    if (req.user.id !== item.owner.toString()) {
+    if (item === null || req.user.id !== item.owner.toString()) {
         req.flash("error", "You are not authorized to do that!");
         return res.redirect(`/naturalparks/${req.params.id}`);
     }
