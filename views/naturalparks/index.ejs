@@ -1,35 +1,35 @@
 <% layout('layouts/boilerplate') %>
-    <h1>Welcome to the Parks Page!</h1>
-
+<h1 class="mb-3">Welcome to the Parks Page!</h1>
+<div class="parks-container">
     <% for(let naturalpark of naturalparks) { %>
-        <div class="card" mb-3>
-            <div class="row">
-                <div class="col-md-4">
-                    <% naturalpark.image.forEach((img, i) => { %>
-                        <% if (i === 0){ %>
-                            <img class="img-fluid" src="<%=img.url%>" alt="<%=naturalpark.title%>">
-                        <% } %>
-                    <% }) %>
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title text-primary">
-                            <a class="btn btn-primary" href="/naturalparks/<%=naturalpark.id %>">
+        <a class="text-decoration-none text-white park-card" href="/naturalparks/<%=naturalpark.id %>">
+            <div class="card bg-dark">
+                <div class="row">
+                    <div class="col-md-4">
+                        <% naturalpark.image.forEach((img, i) => { %>
+                            <% if (i === 0){ %>
+                                <img class="img-fluid park-image" src="<%=img.url%>" alt="<%=naturalpark.title%>">
+                        <% }}) %>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h4 class="card-title">
                                 <%= naturalpark.title %>
-                            </a>
-                            <small>
+                            </h4>
+                            <small class="text-muted">
                                 Rating: <%=naturalpark.averageRating %> (from <%=naturalpark.reviews.length %> reviews)
                             </small>
-                        </h5>
-                        <p class="card-text">
-                            <%=naturalpark.description %>
-                        </p>
-                        <small class="text-muted">
-                            <%=naturalpark.location %>
-                        </small>
-                        <p class="card-text">Tour price: <%=naturalpark.tourprice %>$</p>
+                            <p class="card-text">
+                                <%=naturalpark.description %>
+                            </p>
+                            <small class="text-muted">
+                                <%=naturalpark.location %>
+                            </small>
+                            <p class="card-text">Tour price: <%=naturalpark.tourprice %>$</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-            <% } %>
+        </a>
+    <% } %>
+</div>

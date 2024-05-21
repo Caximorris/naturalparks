@@ -2,7 +2,7 @@
     <h1 class="text-center">Park Details</h1>
     <div class="row">
         <div class="col-md-6 offset-md-3">
-            <div class="card mb-3">
+            <div class="card mb-3 bg-dark text-white">
                 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
                     <div class="carousel-inner">
                         <% naturalpark.image.forEach((img, i) => { %>
@@ -39,13 +39,13 @@
                     </small>
                     <p class="card-text">Tour price: $<%=naturalpark.tourprice%>
                     </p>
-                    <a class="btn btn-secondary btn-block"
+                    <a class="btn btn-secondary btn-block text-white"
                         href="/naturalparks/<%=naturalpark.id%>/reviews">Reviews</a>
                     <% if (currentUser && naturalpark.owner.id === currentUser.id) { %>
                         <div class="mb-2 mt-3">
                             <form action="/naturalparks/<%=naturalpark.id%>?_method=DELETE" method="POST">
-                                <input class="btn btn-danger btn-block" type="submit" value="Delete">
-                                <a class="btn btn-secondary btn-block"
+                                <input class="btn btn-danger btn-block text-white" type="submit" value="Delete">
+                                <a class="btn btn-secondary btn-block text-white"
                                     href="/naturalparks/<%=naturalpark.id%>/edit">Edit</a>
                             </form>
                         </div>
@@ -54,6 +54,6 @@
             </div>
             <h6>Leave a review!</h6>
             <%- include ("../partials/submitreview") %> 
-            <a class="btn btn-secondary btn-block mb-3" href="/naturalparks">Back</a>
+            <a class="btn btn-secondary btn-block mb-3 text-white" href="/naturalparks">Back</a>
         </div>
     </div>
