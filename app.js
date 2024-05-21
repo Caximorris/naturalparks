@@ -12,9 +12,6 @@ const { connectToDatabase } = require('./helpers/database');
 const { errorHandler, notFoundHandler } = require('./middlewares/errorHandlers');
 const otherMiddlewares = require('./middlewares/otherMiddlewares');
 
-// Load environment variables
-//require('dotenv').config();
-
 // Create the express app
 const app = express();
 const port = process.env.PORT || 3000;

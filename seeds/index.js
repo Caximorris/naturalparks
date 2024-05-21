@@ -4,7 +4,7 @@ const { places, descriptors, placedescription } = require('./seedHelpers');
 const Naturalpark = require('../models/naturalpark');
 const Review = require('../models/reviews');
 
-mongoose.connect('mongodb://localhost:27017/naturalpark')
+mongoose.connect('mongodb+srv://caximorris:panchito2008A%40%21@cluster0.xrubyoi.mongodb.net/')
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
@@ -31,7 +31,7 @@ const seedDB = async () => {
                 },
             ],
             description: `${sample(placedescription)}`,
-            owner: '6615bbd6e49061ab18bb0e43' // this is the user id of the user who created the seed data
+            owner: '664cb4a9baff3c522828414e' // this is the user id of the user who created the seed data
         })
         await camp.save();
     }

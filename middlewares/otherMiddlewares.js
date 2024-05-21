@@ -21,7 +21,13 @@ function otherMiddlewares(app, sessionSecret, dbUrl) {
             expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
             maxAge: 1000 * 60 * 60 * 24 * 7,
         },
-        store: MongoStore.create({ mongoUrl: dbUrl }),
+        store: MongoStore.create({ 
+            mongoUrl: dbUrl,
+            touchAfter: 24 * 3600,
+            crypto: {
+                secret: sessionSecret,
+            },
+         }),
     }));
     app.use(flash());
     app.use(passport.initialize());
