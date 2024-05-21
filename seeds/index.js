@@ -1,10 +1,12 @@
+require('dotenv').config();
 const mongoose = require('mongoose');
 const cities = require('./cities');
 const { places, descriptors, placedescription } = require('./seedHelpers');
 const Naturalpark = require('../models/naturalpark');
 const Review = require('../models/reviews');
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/naturalpark'; //create a new .env in this folder or insert database url here
 
-mongoose.connect('mongodb+srv://caximorris:panchito2008A%40%21@cluster0.xrubyoi.mongodb.net/')
+mongoose.connect(dbUrl)
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
