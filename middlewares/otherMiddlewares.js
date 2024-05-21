@@ -22,11 +22,7 @@ function otherMiddlewares(app, sessionSecret, dbUrl) {
             maxAge: 1000 * 60 * 60 * 24 * 7,
         },
         store: MongoStore.create({ 
-            mongoUrl: dbUrl,
-            touchAfter: 24 * 3600,
-            crypto: {
-                secret: sessionSecret,
-            },
+            mongoUrl: dbUrl
          }),
     }));
     app.use(flash());
