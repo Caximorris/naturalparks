@@ -1,11 +1,10 @@
 <% layout('layouts/boilerplate') %>
     <div class="row">
         <div class="col-md-6 offset-md-3">
-            <h3 class="text-center mb-3">Reviews for <%=naturalpark.title%>
-            </h3>
+            <h3 class="text-center mb-3">Reviews for <%=naturalpark.title%></h3>
             <ul class="list-group mb-3">
                 <% naturalpark.reviews.forEach(function(review) { %>
-                    <li class="list-group-item">
+                    <li class="list-group-item bg-dark text-white border-white">
                         <div class="d-flex w-100 justify-content-between">
                             <p class="starability-result" data-rating="<%=review.rating%>">
                             Rated: <%=review.rating%> stars
