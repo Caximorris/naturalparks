@@ -15,7 +15,6 @@ db.once("open", () => {
 });
 
 const sample = array => array[Math.floor(Math.random() * array.length)];
-
 const seedDB = async () => {
     await Naturalpark.deleteMany({});
     await Review.deleteMany({});
@@ -28,7 +27,7 @@ const seedDB = async () => {
             tourprice: randomprice,
             image: [
                 {
-                    url: 'https://source.unsplash.com/collection/483251',
+                    url: `https://source.unsplash.com/random/?nature&${i}`,
                     filename: 'NaturalPark/IMG_20211016_131941.jpg'
                 },
             ],
