@@ -6,7 +6,7 @@ const Naturalpark = require('../models/naturalpark');
 const Review = require('../models/reviews');
 const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/naturalpark'; //create a new .env in this folder or insert database url here
 
-mongoose.connect(dbUrl)
+mongoose.connect("mongodb+srv://caximorris:panchito2008A%40%21@cluster0.xrubyoi.mongodb.net/")
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
@@ -27,7 +27,7 @@ const seedDB = async () => {
             tourprice: randomprice,
             image: [
                 {
-                    url: `https://source.unsplash.com/random/?nature&${i}`,
+                    url: `https://source.unsplash.com/random/1080x720?nature&${i}`,
                     filename: 'NaturalPark/IMG_20211016_131941.jpg'
                 },
             ],

@@ -1,36 +1,17 @@
-<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/naturalparks">Natural Parks</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav me-auto"> <!-- Changed class from ml-auto to me-auto -->
-                <li class="nav-item">
-                    <a class="nav-link" href="/">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/naturalparks/newpark">Add a new park</a>
-                </li>
-            </ul>
-            <ul class="navbar-nav">
-                <% if (!currentUser) {%>
-                <li class="nav-item">
-                    <a class="nav-link" href="/login">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/register">Register</a>
-                </li>
+<header class="mb-auto text-center">
+    <div class="navbar fixed-top custom-navbar">
+        <h3 class="float-md-left mb-0 text-white">Natural Parks</h3>
+        <nav class="nav nav-masthead justify-content-center float-md-right">
+            <a class="nav-link" aria-current="page" href="/">Home</a>
+            <a class="nav-link" href="/naturalparks">Natural Parks</a>
+            <a class="nav-link" href="/naturalparks/newpark">Add a new park</a>
+            <% if(!currentUser) { %>
+                <a class="nav-link" href="/login">Login</a>
+                <a class="nav-link" href="/register">Register</a>
                 <% } else { %>
-                <li class="nav-item">
                     <a class="nav-link" href="/profile">Profile</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="/logout">Logout</a>
-                </li>
-                <% } %>
-            </ul>
-        </div>
+                    <% } %>
+        </nav>
     </div>
-</nav>
+</header>
