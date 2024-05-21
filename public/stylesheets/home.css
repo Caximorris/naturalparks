@@ -11,10 +11,6 @@ body {
     padding: 1rem 10rem;
 }
 
-button {
-    cursor: pointer;
-}
-
 .parks-container {
     display: flex;
     flex-direction: column;
