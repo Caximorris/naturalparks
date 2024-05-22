@@ -1,5 +1,6 @@
 const Naturalpark = require('../models/naturalpark');
 const Review = require('../models/reviews');
+const User = require('../models/user');
 const { cloudinary } = require("../cloudinary");
 
 const index = async (req, res) => {
@@ -13,9 +14,11 @@ const newPark = (req, res) => {
 
 const createPark = async (req, res) => {
     const newNaturalpark = new Naturalpark(req.body.naturalpark);
+    const userOwner = await User.findById(req.user._id);
     newNaturalpark.image = req.files.map(f => ({ url: f.path, filename: f.filename }));
     newNaturalpark.owner = req.user._id;
     await newNaturalpark.save();
+    userOwner.naturalParks.push(newNaturalpark._id);
     req.flash("success", "Successfully created a new natural park!");
     res.redirect(`/naturalparks/${newNaturalpark._id}`);
 };
@@ -54,6 +57,7 @@ const updatePark = async (req, res) => {
 const deletePark = async (req, res) => {
     const { id } = req.params;
     await Naturalpark.findByIdAndDelete(id);
+    await User.findByIdAndUpdate(req.user._id, { $pull: { naturalParks: id } });
     req.flash("success", "Successfully deleted the natural park!");
     res.redirect("/naturalparks");
 };
@@ -63,9 +67,12 @@ const addReview = async (req, res) => {
     const { rating, body } = req.body.review;
     const review = new Review({ rating, body });
     review.owner = req.user._id;
+    review.park = id;
     const naturalpark = await Naturalpark.findById(id);
+    const userOwner = await User.findById(req.user._id);
     naturalpark.reviews.push(review._id);
-    await Promise.all([review.save(), naturalpark.save()]);
+    userOwner.reviews.push(review._id);
+    await Promise.all([review.save(), naturalpark.save(), userOwner.save()]);
     req.flash("success", "Successfully added a new review!");
     res.redirect(`/naturalparks/${naturalpark._id}`);
 };

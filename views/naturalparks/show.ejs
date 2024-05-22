@@ -35,13 +35,15 @@
                     <small class="text-muted">
                         <%=naturalpark.location%>
                         <br>
-                        By <%=naturalpark.owner.username%>
+                        <% if (naturalpark.owner) { %>
+                            By <%=naturalpark.owner.username%>
+                        <%}%>
                     </small>
                     <p class="card-text">Tour price: $<%=naturalpark.tourprice%>
                     </p>
                     <a class="btn btn-secondary btn-block text-white"
                         href="/naturalparks/<%=naturalpark.id%>/reviews">Reviews</a>
-                    <% if (currentUser && naturalpark.owner.id === currentUser.id) { %>
+                    <% if (naturalpark.owner && currentUser && naturalpark.owner.id === currentUser.id) { %>
                         <div class="mb-2 mt-3">
                             <form action="/naturalparks/<%=naturalpark.id%>?_method=DELETE" method="POST">
                                 <input class="btn btn-danger btn-block text-white" type="submit" value="Delete">

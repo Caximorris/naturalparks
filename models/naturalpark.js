@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Review = require('./reviews');
+const User = require('./user');
 
 const imageSchema = new mongoose.Schema({
     url: {
@@ -53,9 +54,8 @@ const naturalParkSchema = new mongoose.Schema({
 });
 
 naturalParkSchema.post('findOneAndDelete', async function (naturalPark) {
-    if (naturalPark.reviews) {
-        await Review.deleteMany({ _id: { $in: naturalPark.reviews } });
-    }
+    await User.updateMany({ $pull: { reviews: naturalPark.reviews } });
+    await Review.deleteMany({ _id: { $in: naturalPark.reviews } });
 });
 
 naturalParkSchema.methods.updateAverageRating = async function () {
@@ -63,7 +63,7 @@ naturalParkSchema.methods.updateAverageRating = async function () {
     if (naturalPark.reviews.length) {
         const totalRating = naturalPark.reviews.reduce((acc, curr) => acc + curr.rating, 0);
         naturalPark.averageRating = Math.round(totalRating / naturalPark.reviews.length * 10) / 10;
-    }else{
+    } else {
         naturalPark.averageRating = 0;
     }
 };

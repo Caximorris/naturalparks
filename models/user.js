@@ -6,7 +6,19 @@ const userSchema = new mongogoose.Schema({
         type: String,
         required: [true, 'Email is required'],
         unique: true
-    }
+    },
+    naturalParks: [
+        {
+            type: mongogoose.Schema.Types.ObjectId,
+            ref: 'NaturalPark'
+        }
+    ],
+    reviews: [
+        {
+            type: mongogoose.Schema.Types.ObjectId,
+            ref: 'Review'
+        }
+    ]
 });
 
 userSchema.plugin(passportLocalMongoose);

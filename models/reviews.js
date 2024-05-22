@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const NaturalPark = require('./naturalpark');
 
 const reviewSchema = new mongoose.Schema({
     rating: {
@@ -14,6 +15,10 @@ const reviewSchema = new mongoose.Schema({
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
+    },
+    park: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'NaturalPark'
     }
 });
 

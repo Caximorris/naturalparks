@@ -1,4 +1,6 @@
 const User = require("../models/user");
+const Review = require("../models/reviews");
+const NaturalPark = require("../models/naturalpark");
 
 const login = (req, res) => {
     if (req.isAuthenticated()) {
@@ -43,4 +45,42 @@ const profile = (req, res) => {
     res.render("users/profile", { user: req.user });
 };
 
-module.exports = { login, postLogin, logout, register, postRegister, profile };
+const editProfile = (req, res) => {
+    res.render("users/editProfile", { user: req.user });
+};
+
+const putProfile = async (req, res) => {
+    const { username, email, password, confirmPassword } = req.body.user;
+    if (password !== confirmPassword) {
+        req.flash("error", "Passwords do not match");
+        return res.redirect("/profile/edit");
+    }
+    let user = await User.findById(req.user._id);
+    user.username = username;
+    user.email = email;
+    if (password && password.trim() !== '') {
+        await user.setPassword(password);
+    }
+    await user.save();
+    req.login(user, (err) => {
+        if (err) return next(err);
+        req.flash("success", "Profile updated!");
+        res.redirect("/profile");
+    });
+}
+
+const deleteProfile = async (req, res) => {
+    await User.findByIdAndDelete(req.user._id);
+    const userReviews = await Review.find({ owner: req.user._id });
+    for (let review of userReviews) {
+        const park = await NaturalPark.findById(review.park);
+        park.reviews.remove(review._id);
+        park.save();
+    }
+    await Review.deleteMany({ owner: req.user._id });
+    await NaturalPark.deleteMany({ _id: { $in: req.user.naturalParks } });
+    req.flash("success", "We're sad to see you go!");
+    res.redirect("/naturalparks");
+};
+
+module.exports = { login, postLogin, logout, register, postRegister, profile, editProfile, putProfile, deleteProfile };
