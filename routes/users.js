@@ -22,4 +22,9 @@ router.route("/register")
 router.route("/profile")
     .get(isLoggedIn, users.profile);
 
+router.route("/profile/edit")
+    .get(isLoggedIn, users.editProfile)
+    .put(isLoggedIn, validateUser, catchAsync(users.putProfile))
+    .delete(isLoggedIn, catchAsync(users.deleteProfile));
+
 module.exports = router;

@@ -43,4 +43,30 @@ const profile = (req, res) => {
     res.render("users/profile", { user: req.user });
 };
 
-module.exports = { login, postLogin, logout, register, postRegister, profile };
+const editProfile = (req, res) => {
+    res.render("users/editProfile", { user: req.user });
+};
+
+const putProfile = async (req, res) => {
+    const { username, email, password } = req.body.user;
+    let user = await User.findById(req.user._id);
+    user.username = username;
+    user.email = email;
+    if (password && password.trim() !== '') {
+        user.setPassword(password);
+    }
+    await user.save();
+    req.login(user, (err) => {
+        if (err) return next(err);
+        req.flash("success", "Profile updated!");
+        res.redirect("/profile");
+    });
+}
+
+const deleteProfile = async (req, res) => {
+    await User.findByIdAndDelete(req.user._id);
+    req.flash("success", "We're sad to see you go!");
+    res.redirect("/naturalparks");
+};
+
+module.exports = { login, postLogin, logout, register, postRegister, profile, editProfile, putProfile, deleteProfile };
