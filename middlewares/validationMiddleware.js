@@ -41,12 +41,22 @@ const userSchema = Joi.object({
     }).required()
 }).required();
 
+const userUpdaterSchema = Joi.object({
+    user: Joi.object({
+        email: Joi.string().required(),
+        username: Joi.string().required(),
+        password: Joi.string().optional().allow(''),
+    }).required()
+}).required();
+
 const validateNaturalpark = validateSchema(naturalparkSchema);
 const validateReview = validateSchema(reviewSchema);
 const validateUser = validateSchema(userSchema);
+const validateUserUpdate = validateSchema(userUpdaterSchema);
 
 module.exports = {
     validateNaturalpark,
     validateReview,
-    validateUser
+    validateUser,
+    validateUserUpdate
 };

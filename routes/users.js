@@ -3,7 +3,7 @@ const passport = require("passport");
 const catchAsync = require("../helpers/catchAsync");
 const users = require("../controllers/users");
 const { isLoggedIn, storeReturnTo } = require("../middlewares/authMiddleware");
-const { validateUser } = require("../middlewares/validationMiddleware");
+const { validateUser, validateUserUpdate } = require("../middlewares/validationMiddleware");
 
 const router = express.Router();
 
@@ -24,7 +24,7 @@ router.route("/profile")
 
 router.route("/profile/edit")
     .get(isLoggedIn, users.editProfile)
-    .put(isLoggedIn, validateUser, catchAsync(users.putProfile))
+    .put(isLoggedIn, validateUserUpdate, catchAsync(users.putProfile))
     .delete(isLoggedIn, catchAsync(users.deleteProfile));
 
 module.exports = router;

@@ -67,6 +67,7 @@ const addReview = async (req, res) => {
     const { rating, body } = req.body.review;
     const review = new Review({ rating, body });
     review.owner = req.user._id;
+    review.park = id;
     const naturalpark = await Naturalpark.findById(id);
     const userOwner = await User.findById(req.user._id);
     naturalpark.reviews.push(review._id);

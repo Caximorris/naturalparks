@@ -1,4 +1,6 @@
 const User = require("../models/user");
+const Review = require("../models/reviews");
+const NaturalPark = require("../models/naturalpark");
 
 const login = (req, res) => {
     if (req.isAuthenticated()) {
@@ -52,7 +54,7 @@ const putProfile = async (req, res) => {
     let user = await User.findById(req.user._id);
     user.username = username;
     user.email = email;
-    if (password && password.trim() !== '') {
+    if (password) {
         user.setPassword(password);
     }
     await user.save();
@@ -65,6 +67,14 @@ const putProfile = async (req, res) => {
 
 const deleteProfile = async (req, res) => {
     await User.findByIdAndDelete(req.user._id);
+    const userReviews = await Review.find({ owner: req.user._id });
+    for (let review of userReviews) {
+        const park = await NaturalPark.findById(review.park);
+        park.reviews.remove(review._id);
+        park.save();
+    }
+    await Review.deleteMany({ owner: req.user._id });
+    await NaturalPark.deleteMany({ _id: { $in: req.user.naturalParks } });
     req.flash("success", "We're sad to see you go!");
     res.redirect("/naturalparks");
 };
