@@ -27,7 +27,7 @@ To get started with the NaturePark Upload Web App, follow these steps:
    npm install
    ```
 
-3. **Initialize Seeder:** Run the seeder initialization script (inside the seeds folder) to populate the MongoDB database with sample park data (insert your own database url on index.js and change the default user to a new one already created on the database):
+3. **Initialize Seeder:** Run the seeder initialization script (inside the seeds folder) to populate the MongoDB database with sample park data (insert your own database url on index.js and change the admin password):
    ```
    nodemon index.js
    ```
