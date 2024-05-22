@@ -46,6 +46,7 @@ const userUpdaterSchema = Joi.object({
         email: Joi.string().required(),
         username: Joi.string().required(),
         password: Joi.string().optional().allow(''),
+        confirmPassword: Joi.string().optional().allow(''),
     }).required()
 }).required();
 

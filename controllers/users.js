@@ -50,12 +50,16 @@ const editProfile = (req, res) => {
 };
 
 const putProfile = async (req, res) => {
-    const { username, email, password } = req.body.user;
+    const { username, email, password, confirmPassword } = req.body.user;
+    if (password !== confirmPassword) {
+        req.flash("error", "Passwords do not match");
+        return res.redirect("/profile/edit");
+    }
     let user = await User.findById(req.user._id);
     user.username = username;
     user.email = email;
-    if (password) {
-        user.setPassword(password);
+    if (password && password.trim() !== '') {
+        await user.setPassword(password);
     }
     await user.save();
     req.login(user, (err) => {

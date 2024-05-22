@@ -20,6 +20,7 @@ const seedDB = async () => {
     await Naturalpark.deleteMany({});
     await Review.deleteMany({});
     await User.deleteMany({});
+    await mongoose.connection.dropCollection('sessions');
 
     const password = 'admin'; //create a new .env in this folder or insert password here
     const adminUser = new User({ email: 'admin@admin.com', username: 'admin' });
