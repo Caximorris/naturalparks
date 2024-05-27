@@ -1,0 +1,21 @@
+<input class="btn btn-danger btn-block text-white" type="submit" id="deletebtn-<%=id%>" value="Delete">
+<script>
+    document.getElementById('deletebtn-<%=id%>').addEventListener('click', (e) => {
+        console.log('clicked');
+        e.preventDefault();
+        Swal.fire({
+            title: 'Are you sure?',
+            html: '<form action="<%= url %>?_method=DELETE" method="POST"><input class="btn btn-danger text-white" type="submit" value="Delete"></form>',
+            icon: 'error',
+            showCancelButton: true,
+            showConfirmButton: false,
+            background: '#343a40',
+            customClass: {
+                title: 'text-white',
+                content: 'text-white',
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-secondary text-white',
+            }
+        })
+    });
+</script>

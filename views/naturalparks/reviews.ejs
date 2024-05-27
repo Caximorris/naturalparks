@@ -15,10 +15,7 @@
                             <small>By: <%=review.owner.username%></small>
                         </div>
                         <% if (currentUser && currentUser.id === review.owner.id) { %>
-                            <form action="/naturalparks/<%=naturalpark.id%>/reviews/<%=review.id%>?_method=DELETE" method="POST">
-                                <input type="submit" value="Delete Review" class="btn btn-danger btn-sm
-                                float-right">
-                            </form>
+                            <%- include("../partials/delete-button", {url: `/naturalparks/${naturalpark.id}/reviews/${review.id}`, id: review.id}); %>
                         <% } %>
                     </li>
                     <% }) %>

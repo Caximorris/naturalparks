@@ -45,11 +45,8 @@
                         href="/naturalparks/<%=naturalpark.id%>/reviews">Reviews</a>
                     <% if (naturalpark.owner && currentUser && naturalpark.owner.id === currentUser.id) { %>
                         <div class="mb-2 mt-3">
-                            <form action="/naturalparks/<%=naturalpark.id%>?_method=DELETE" method="POST">
-                                <input class="btn btn-danger btn-block text-white" type="submit" value="Delete">
-                                <a class="btn btn-secondary btn-block text-white"
-                                    href="/naturalparks/<%=naturalpark.id%>/edit">Edit</a>
-                            </form>
+                            <a class="btn btn-secondary btn-block text-white mb-3" href="/naturalparks/<%=naturalpark.id%>/edit">Edit</a>
+                            <%- include("../partials/delete-button", {url: `/naturalparks/${naturalpark.id}`, id: ""}); %>
                         </div>
                     <% } %>
                 </div>

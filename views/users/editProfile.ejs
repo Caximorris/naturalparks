@@ -24,12 +24,10 @@
                     <input type="password" class="form-control" id="confirmpassword" name="user[confirmPassword]">
                 </div>
                 <div class="mb-3">
-                    <a href="/profile" class="btn btn-secondary btn-block text-white">Cancel</a>
+                    <a href="/profile" class="btn btn-secondary btn-block text-white mb-3">Cancel</a>
                     <input type="submit" class="btn btn-primary btn-block" value="Confirm">
                 </div>
             </form>
-            <form action="/profile/edit?_method=DELETE" method="POST">
-                <input class="btn btn-danger btn-block text-white" type="submit" value="Delete">
-            </form>
+            <%- include("../partials/delete-button", {url: '/profile/edit', id: ""}); %>
         </div>
     </div>
